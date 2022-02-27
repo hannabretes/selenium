@@ -1,0 +1,31 @@
+import time
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+#
+# for i in range(10):
+diver = webdriver.Chrome(ChromeDriverManager().install())
+diver.get("https://allegro.pl")
+#diver.set_window_size(1800, 1200)
+diver.maximize_window()
+przyciskOk = diver.find_element_by_xpath('//button[contains(text(), "Ok, zgadzam się")]')
+przyciskOk.click()
+time.sleep(2)
+przyciskAllegro = diver.find_element_by_xpath('//span[contains(text(), "Moje Allegro")]')
+przyciskAllegro.click()
+time.sleep(2)
+przyciskZaloguj = diver.find_element_by_xpath('//a[@href="/logowanie?origin_url=%2F"]')
+przyciskZaloguj.click()
+login = "coś tu wpisać"
+haslo = "coś tu wpisać"
+input_login = diver.find_element_by_id('login')
+input_login.click()
+input_login.send_keys(login)
+time.sleep(2)
+input_haslo = diver.find_element_by_id('password')
+input_haslo.click()
+input_haslo.send_keys(haslo)
+time.sleep(2)
+diver.find_element_by_xpath('//button[contains(text(), "Zaloguj się")]').click()
+
+diver.close()
