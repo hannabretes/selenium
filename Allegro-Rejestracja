@@ -1,0 +1,38 @@
+import time
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
+diver = webdriver.Chrome(ChromeDriverManager().install())
+diver.get("https://allegro.pl")
+# diver.set_window_size(1800, 1200)
+diver.maximize_window()
+przyciskOk = diver.find_element_by_xpath('//button[contains(text(), "Ok, zgadzam się")]')
+przyciskOk.click()
+time.sleep(2)
+przyciskAllegro = diver.find_element_by_xpath('//span[contains(text(), "Moje Allegro")]')
+przyciskAllegro.click()
+time.sleep(2)
+przyciskAllegro = diver.find_element_by_xpath('//a[@href="/rejestracja?origin_url=%2F"]')
+przyciskAllegro.click()
+email = "tu cos wpisać"
+haslo = "tu cos wpisać"
+input_email = diver.find_element_by_id("email")
+input_email.click()
+input_email.send_keys(email)
+input_haslo = diver.find_element_by_id("password")
+input_haslo.click()
+input_haslo.send_keys(haslo)
+przycisk18lat = diver.find_element_by_xpath('//p[contains(text(), "Mam 18 lat i więcej")]')
+przycisk18lat.click()
+# checkbox = diver.find_element_by_name("agreementTerm")
+# checkbox.click()
+checkboxTerm = diver.find_element_by_css_selector('._d596d_2Wit6')
+checkboxTerm.click()
+checkboxmarketing = diver.find_element_by_id("allegroMarketing")
+checkboxmarketing.click()
+checkboxmarketing2 = diver.find_element_by_id("thirdPartyMarketing")
+checkboxmarketing2.click()
+rejestruj = diver.find_element_by_xpath('//button[contains(text(), "Zarejestruj")]')
+rejestruj.click()
+diver.close()
