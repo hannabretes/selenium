@@ -1,0 +1,59 @@
+import time
+import random
+import string
+from random import sample
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
+def random_char(y):
+    return ''.join(random.choice(string.ascii_letters) for x in range(y))
+
+def password_generator(longitud):
+    abc_minusculas = "abcdefghijklmnopqrstuvwxyz"
+    abc_mayusculas = abc_minusculas.upper()
+    numeros = "0123456789"
+    symbol = "!”#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+    secuencia = abc_minusculas + abc_mayusculas + numeros + symbol
+    password_union = sample(secuencia, longitud)
+    password_result = "".join(password_union)
+    return password_result
+
+print(password_generator(10))
+# for i in range(10):
+driver = webdriver.Chrome(ChromeDriverManager().install())
+driver.get("https://www.google.com/intl/pl/gmail/about")
+#diver.set_window_size(1800, 1200)
+driver.maximize_window()
+driver.find_element_by_xpath('//span[contains(text(), "Utwórz konto")]').click()
+time.sleep(2)
+
+input_imie = driver.find_element_by_id("firstName")
+imie = "Janek"
+input_imie.click()
+input_imie.send_keys(imie)
+time.sleep(2)
+
+input_nazwisko = driver.find_element_by_id("lastName")
+nazwisko = "Kowalski"
+input_nazwisko.click()
+input_nazwisko.send_keys(nazwisko)
+time.sleep(2)
+
+input_username = driver.find_element_by_id("username")
+input_username.clear()
+input_username.click()
+username = random_char(11)
+input_username.send_keys(username)
+time.sleep(2)
+
+input_haslo = driver.find_element_by_name("Passwd")
+input_haslo.click()
+haslo = password_generator(10)
+input_haslo.send_keys(haslo)
+time.sleep(2)
+
+input_haslo2 = driver.find_element_by_name("ConfirmPasswd")
+input_haslo2.click()
+haslo2 = haslo
+input_haslo2.send_keys(haslo2)
+time.sleep(2)
